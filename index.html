@@ -16,6 +16,112 @@
   <script type="text/babel">
     const { useState, useEffect, useRef } = React;
 
+    // ── Book a Call Modal ─────────────────────────────────────────────────────
+    function BookCallModal({ onClose, prefillEmail }) {
+      const [name, setName] = React.useState("");
+      const [contactEmail, setContactEmail] = React.useState(prefillEmail || "");
+      const [phone, setPhone] = React.useState("");
+      const [submitted, setSubmitted] = React.useState(false);
+      const [loading, setLoading] = React.useState(false);
+
+      const handleSubmit = async () => {
+        if (!contactEmail && !phone) return;
+        setLoading(true);
+        try {
+          await fetch("/book-call", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: contactEmail, phone, name, url: window.location.href, event: "book_call" }),
+          });
+          setSubmitted(true);
+        } catch(e) {}
+        setLoading(false);
+      };
+
+      return (
+        <div style={{
+          position: "fixed", inset: 0, background: "rgba(3,16,61,0.7)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          zIndex: 9999, padding: 20, backdropFilter: "blur(4px)",
+        }} onClick={(e) => e.target === e.currentTarget && onClose()}>
+          <div style={{
+            background: "#fff", borderRadius: 20, padding: "40px 36px",
+            maxWidth: 420, width: "100%", boxShadow: "0 32px 80px rgba(0,0,0,0.2)",
+            animation: "slideUp 0.25s ease forwards",
+          }}>
+            {submitted ? (
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontSize: 48, marginBottom: 12 }}>🎉</div>
+                <h3 style={{ color: "#03103D", fontSize: 22, fontWeight: 800, marginBottom: 8, fontFamily: "'Space Grotesk', sans-serif" }}>
+                  We'll be in touch!
+                </h3>
+                <p style={{ color: "#4A5568", fontSize: 14, marginBottom: 24, lineHeight: 1.6 }}>
+                  Thanks! One of our team will reach out within 1 business day to book your free AI strategy session.
+                </p>
+                <button onClick={onClose} style={{
+                  padding: "12px 28px", background: "#FF5A00", color: "#fff",
+                  border: "none", borderRadius: 10, fontSize: 14, fontWeight: 700,
+                  cursor: "pointer", fontFamily: "inherit",
+                }}>Close</button>
+              </div>
+            ) : (
+              <>
+                <button onClick={onClose} style={{
+                  position: "absolute", top: 16, right: 16, background: "none",
+                  border: "none", fontSize: 20, cursor: "pointer", color: "#4A5568",
+                }}>✕</button>
+                <div style={{ fontSize: 36, marginBottom: 12, textAlign: "center" }}>📞</div>
+                <h3 style={{ color: "#03103D", fontSize: 22, fontWeight: 800, marginBottom: 6, textAlign: "center", fontFamily: "'Space Grotesk', sans-serif" }}>
+                  Book a Free AI Strategy Call
+                </h3>
+                <p style={{ color: "#4A5568", fontSize: 13, marginBottom: 24, textAlign: "center", lineHeight: 1.6 }}>
+                  Leave your details and we'll reach out within 1 business day to schedule your session.
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  <input
+                    type="text" placeholder="Your name" value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    style={{
+                      padding: "13px 16px", borderRadius: 10, border: "1.5px solid #E2E5EB",
+                      fontSize: 14, fontFamily: "inherit", outline: "none",
+                    }}
+                  />
+                  <input
+                    type="email" placeholder="Work email address" value={contactEmail}
+                    onChange={(e) => setContactEmail(e.target.value)}
+                    style={{
+                      padding: "13px 16px", borderRadius: 10, border: "1.5px solid #E2E5EB",
+                      fontSize: 14, fontFamily: "inherit", outline: "none",
+                    }}
+                  />
+                  <input
+                    type="tel" placeholder="Phone number (optional)" value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    style={{
+                      padding: "13px 16px", borderRadius: 10, border: "1.5px solid #E2E5EB",
+                      fontSize: 14, fontFamily: "inherit", outline: "none",
+                    }}
+                  />
+                  <button onClick={handleSubmit} disabled={loading || (!contactEmail && !phone)}
+                    style={{
+                      padding: "14px 28px", background: loading ? "#ccc" : "#FF5A00",
+                      color: "#fff", border: "none", borderRadius: 10, fontSize: 15,
+                      fontWeight: 700, cursor: loading ? "not-allowed" : "pointer",
+                      fontFamily: "inherit", marginTop: 4,
+                    }}>
+                    {loading ? "Sending..." : "Request My Strategy Call →"}
+                  </button>
+                  <p style={{ fontSize: 11, color: "#4A5568", textAlign: "center" }}>
+                    No obligation • We'll confirm a time that suits you
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      );
+    }
+
 const BRAND = {
   orange: "#FF5A00",
   navy: "#03103D",
@@ -375,6 +481,7 @@ function BusinessGrader() {
   const [industry, setIndustry] = useState("");
   const [phase, setPhase] = useState("landing");
   const [scores, setScores] = useState(null);
+  const [showBookCall, setShowBookCall] = useState(false);
   const [scanStep, setScanStep] = useState(0);
   const [overallScore, setOverallScore] = useState(0);
 
@@ -808,7 +915,7 @@ function BusinessGrader() {
                   Check <strong>{email}</strong> for your personalised report. Want to see how fast we can deploy AI agents for your practice?
                 </p>
                 <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
-                  <button style={{
+                  <button onClick={() => setShowBookCall(true)} style={{
                     padding: "13px 28px", background: BRAND.orange, color: BRAND.white,
                     border: "none", borderRadius: 10, fontSize: 14, fontWeight: 700,
                     cursor: "pointer", fontFamily: "inherit",
@@ -876,6 +983,7 @@ function BusinessGrader() {
         }
       `}</style>
     </div>
+    {showBookCall && <BookCallModal onClose={() => setShowBookCall(false)} prefillEmail={email} />}
   );
 }
 
