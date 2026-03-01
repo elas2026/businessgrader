@@ -287,6 +287,6 @@ class Handler(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     print(f"[START] BusinessGrader server on port {PORT}")
     print(f"[START] Notify email: {NOTIFY_EMAIL}")
-    print(f"[START] SMTP configured: {'YES' if SMTP_PASS else 'NO — set SMTP_PASS env var'}")
+    print(f"[START] Graph API configured: {'YES' if GRAPH_SECRET else 'NO — set GRAPH_SECRET env var'}")
     server = HTTPServer(("0.0.0.0", PORT), Handler)
     server.serve_forever()
