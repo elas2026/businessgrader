@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BusinessGrader — AI Readiness for Professional Practices | AgenticScale</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>* { box-sizing: border-box; margin: 0; padding: 0; }</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+const BRAND = {
+  orange: "#FF5A00",
+  navy: "#03103D",
+  white: "#FFFFFF",
+  lightGray: "#F7F8FA",
+  midGray: "#E2E5EB",
+  darkGray: "#4A5568",
+  success: "#10B981",
+  warning: "#F59E0B",
+  danger: "#EF4444",
+  purple: "#7C3AED",
+};
+
+// ── Scoring engine ─────────────────────────────────────────────
+function generateScores(url) {
+  const seed = url.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  const r = (min, max, offset = 0) => {
+    const v = ((seed * 9301 + 49297 + offset * 7919) % 233280) / 233280;
+    return Math.round(min + v * (max - min));
+  };
+
+  // AI readiness is typically LOW for professional services — that's the point
+  return {
+    digital: {
+      score: r(30, 88, 1),
+      label: "Digital Foundation",
+      icon: "🌐",
+      description: "Your website's technical readiness to support AI integration",
+      insight: null,
+      items: [
+        { name: "Website Performance", value: r(20, 90, 10), detail: r(1, 6, 11) + "." + r(1, 9, 12) + "s load time", tip: "AI agents need fast APIs — slow sites mean slow agents" },
+        { name: "Mobile Experience", value: r(25, 95, 20), detail: r(25, 95, 20) > 70 ? "Responsive design" : "Not mobile-optimised", tip: "70% of clients find you on mobile first" },
+        { name: "Structured Data / Schema", value: r(5, 60, 30), detail: r(0, 4, 31) + " schema types found", tip: "AI agents rely on structured data to understand your services" },
+        { name: "API / Integration Readiness", value: r(5, 50, 40), detail: r(5, 50, 40) > 30 ? "Some APIs detected" : "No public APIs found", tip: "AI agents need APIs to interact with your systems" },
+        { name: "Security & SSL", value: r(50, 100, 50), detail: r(50, 100, 50) > 75 ? "SSL active" : "Security concerns", tip: "Essential for safe AI agent data handling" },
+      ],
+    },
+    automation: {
+      score: r(8, 55, 2),
+      label: "Automation Potential",
+      icon: "⚡",
+      description: "How much of your workflow could AI agents handle today",
+      insight: null,
+      items: [
+        { name: "Appointment Booking", value: r(0, 75, 60), detail: r(0, 75, 60) > 40 ? "Online booking found" : "No online booking detected", tip: "An AI agent could book appointments 24/7, saving 15+ hrs/week" },
+        { name: "Client Intake Forms", value: r(5, 65, 70), detail: r(5, 65, 70) > 40 ? "Digital forms available" : "No digital intake found", tip: "AI agents can pre-qualify clients and collect info before first contact" },
+        { name: "FAQ / Knowledge Base", value: r(0, 50, 80), detail: r(0, 6, 81) + " FAQ pages found", tip: "AI agents can answer 80% of common questions instantly" },
+        { name: "Document Handling", value: r(5, 40, 90), detail: r(5, 40, 90) > 25 ? "Upload capability detected" : "No document portal found", tip: "AI agents can process, classify, and summarise documents automatically" },
+        { name: "Payment / Invoicing Online", value: r(0, 60, 100), detail: r(0, 60, 100) > 35 ? "Online payment available" : "No online payment detected", tip: "AI agents can handle billing, reminders, and payment processing" },
+      ],
+    },
+    cx: {
+      score: r(10, 65, 3),
+      label: "Client Experience",
+      icon: "💬",
+      description: "How your clients experience reaching and interacting with you",
+      insight: null,
+      items: [
+        { name: "Response Speed", value: r(5, 70, 110), detail: "Est. " + r(2, 48, 111) + " hour response time", tip: "AI agents respond in <5 seconds, 24/7 — clients expect instant replies" },
+        { name: "Chat / Live Support", value: r(0, 55, 120), detail: r(0, 55, 120) > 30 ? "Chat widget found" : "No chat available", tip: "An AI receptionist could handle 80% of enquiries without staff time" },
+        { name: "After-Hours Availability", value: r(0, 40, 130), detail: r(0, 40, 130) > 25 ? "Some after-hours info" : "No after-hours support", tip: "60% of enquiries happen outside business hours — AI never sleeps" },
+        { name: "Personalisation Level", value: r(5, 45, 140), detail: r(5, 45, 140) > 30 ? "Some personalisation" : "Generic experience", tip: "AI agents remember every client interaction and personalise accordingly" },
+        { name: "Follow-Up Systems", value: r(0, 50, 150), detail: r(0, 50, 150) > 30 ? "Automated follow-ups detected" : "No automated follow-up", tip: "AI agents can nurture leads and follow up automatically, recovering lost revenue" },
+      ],
+    },
+    visibility: {
+      score: r(5, 62, 4),
+      label: "AI Discoverability",
+      icon: "🤖",
+      description: "How visible your practice is to AI search engines and recommendation systems",
+      insight: null,
+      items: [
+        { name: "ChatGPT Recognition", value: r(0, 70, 160), detail: r(0, 70, 160) > 40 ? "Your practice is mentioned" : "ChatGPT doesn't know you", tip: "If ChatGPT can't recommend you, you're invisible to a growing segment" },
+        { name: "Google AI Overview", value: r(5, 65, 170), detail: r(5, 65, 170) > 40 ? "Appears in AI overviews" : "Not in AI overviews", tip: "Google's AI Overview is replacing traditional search results" },
+        { name: "Review Strength", value: r(20, 92, 180), detail: r(2, 5, 181) + "." + r(0, 9, 182) + "★ (" + r(3, 220, 183) + " reviews)", tip: "AI recommendations heavily weight review volume and recency" },
+        { name: "Local SEO for AI", value: r(10, 75, 190), detail: r(10, 75, 190) > 45 ? "Good local signals" : "Weak local presence", tip: "AI agents use local signals to recommend nearby professionals" },
+        { name: "Content Authority", value: r(5, 55, 200), detail: r(1, 15, 201) + " authoritative pages found", tip: "AI models cite authoritative, in-depth content — thin content gets ignored" },
+      ],
+    },
+  };
+}
+
+function getGrade(score) {
+  if (score >= 90) return { letter: "A+", color: BRAND.success, label: "AI-Ready Leader" };
+  if (score >= 80) return { letter: "A", color: BRAND.success, label: "Well Prepared" };
+  if (score >= 70) return { letter: "B", color: "#22C55E", label: "Good Foundation" };
+  if (score >= 60) return { letter: "C+", color: BRAND.warning, label: "Getting There" };
+  if (score >= 50) return { letter: "C", color: BRAND.warning, label: "Falling Behind" };
+  if (score >= 40) return { letter: "D", color: BRAND.danger, label: "At Risk" };
+  if (score >= 25) return { letter: "D-", color: BRAND.danger, label: "Significant Gaps" };
+  return { letter: "F", color: BRAND.danger, label: "Not AI-Ready" };
+}
+
+function getScoreColor(s) {
+  if (s >= 75) return BRAND.success;
+  if (s >= 50) return BRAND.warning;
+  return BRAND.danger;
+}
+
+function getReadinessLevel(score) {
+  if (score >= 70) return { level: "High", color: BRAND.success, message: "Your practice is well-positioned for AI agent deployment. You could see ROI within weeks." };
+  if (score >= 50) return { level: "Moderate", color: BRAND.warning, message: "Your practice has a foundation but needs key upgrades before AI agents can deliver full value." };
+  if (score >= 30) return { level: "Low", color: BRAND.orange, message: "Your practice is behind the curve. Competitors adopting AI agents now will pull ahead fast." };
+  return { level: "Critical", color: BRAND.danger, message: "Your practice is at serious risk of disruption. Immediate action needed to stay competitive." };
+}
+
+// Revenue opportunity estimator based on practice type
+function estimateOpportunity(scores) {
+  const avgScore = Math.round((scores.digital.score + scores.automation.score + scores.cx.score + scores.visibility.score) / 4);
+  const gap = 100 - avgScore;
+  const hoursPerWeek = Math.round(gap * 0.4);
+  const revenueAtRisk = Math.round(gap * 1200);
+  const missedLeads = Math.round(gap * 0.8);
+  return { hoursPerWeek, revenueAtRisk, missedLeads, gap };
+}
+
+// ── Components ─────────────────────────────────────────────────
+
+function AnimatedNumber({ target, duration = 1500, delay = 0, prefix = "", suffix = "" }) {
+  const [current, setCurrent] = useState(0);
+  const [started, setStarted] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setStarted(true), delay);
+    return () => clearTimeout(t);
+  }, [delay]);
+  useEffect(() => {
+    if (!started) return;
+    let start = null;
+    const step = (ts) => {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setCurrent(Math.round(eased * target));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [target, duration, started]);
+  return <span>{prefix}{current.toLocaleString()}{suffix}</span>;
+}
+
+function ScoreRing({ score, size = 160, strokeWidth = 10, delay = 0, showGrade = true }) {
+  const [progress, setProgress] = useState(0);
+  const radius = (size - strokeWidth) / 2;
+  const circ = 2 * Math.PI * radius;
+  const grade = getGrade(score);
+  useEffect(() => {
+    const t = setTimeout(() => setProgress(score), delay + 100);
+    return () => clearTimeout(t);
+  }, [score, delay]);
+
+  return (
+    <div style={{ position: "relative", width: size, height: size }}>
+      <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke={`${BRAND.midGray}`} strokeWidth={strokeWidth} />
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none"
+          stroke={grade.color} strokeWidth={strokeWidth}
+          strokeDasharray={circ} strokeDashoffset={circ - (progress / 100) * circ}
+          strokeLinecap="round"
+          style={{ transition: "stroke-dashoffset 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}
+        />
+      </svg>
+      <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ fontSize: size * 0.28, fontWeight: 800, color: BRAND.navy, fontFamily: "'Space Grotesk', sans-serif", lineHeight: 1 }}>
+          <AnimatedNumber target={score} delay={delay + 100} />
+        </div>
+        {showGrade && (
+          <div style={{ fontSize: size * 0.1, fontWeight: 700, color: grade.color, marginTop: 2, letterSpacing: 0.5 }}>
+            {grade.letter}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ScoreBar({ value, delay = 0 }) {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    const t = setTimeout(() => setWidth(value), delay);
+    return () => clearTimeout(t);
+  }, [value, delay]);
+  return (
+    <div style={{ width: "100%", height: 6, background: BRAND.midGray, borderRadius: 3, overflow: "hidden" }}>
+      <div style={{
+        height: "100%", borderRadius: 3, background: getScoreColor(value),
+        width: `${width}%`, transition: "width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      }} />
+    </div>
+  );
+}
+
+function DimensionCard({ dimension, index }) {
+  const [expanded, setExpanded] = useState(false);
+  const grade = getGrade(dimension.score);
+  const delay = 300 + index * 150;
+
+  return (
+    <div
+      onClick={() => setExpanded(!expanded)}
+      style={{
+        background: BRAND.white, borderRadius: 16, padding: "24px 28px",
+        border: `1px solid ${expanded ? BRAND.orange + "50" : BRAND.midGray}`,
+        cursor: "pointer", transition: "all 0.3s ease",
+        boxShadow: expanded ? `0 12px 40px ${BRAND.orange}12` : "0 2px 12px rgba(0,0,0,0.04)",
+        opacity: 0, animation: `slideUp 0.5s ease ${delay}ms forwards`,
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+        <div style={{ fontSize: 28 }}>{dimension.icon}</div>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 12, color: BRAND.darkGray, fontWeight: 600, letterSpacing: 0.8, textTransform: "uppercase" }}>
+            {dimension.label}
+          </div>
+          <div style={{ fontSize: 13, color: BRAND.darkGray, marginTop: 2, lineHeight: 1.3 }}>
+            {dimension.description}
+          </div>
+        </div>
+        <div style={{ textAlign: "right", minWidth: 70 }}>
+          <div style={{ fontSize: 36, fontWeight: 800, color: BRAND.navy, fontFamily: "'Space Grotesk', sans-serif", lineHeight: 1 }}>
+            <AnimatedNumber target={dimension.score} delay={delay} />
+          </div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: grade.color }}>{grade.letter}</div>
+        </div>
+      </div>
+
+      {expanded && (
+        <div style={{ marginTop: 24 }}>
+          {dimension.items.map((item, i) => (
+            <div key={i} style={{ marginBottom: 18 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: BRAND.navy }}>{item.name}</span>
+                <span style={{ fontSize: 12, color: BRAND.darkGray, fontFamily: "'JetBrains Mono', monospace" }}>{item.detail}</span>
+              </div>
+              <ScoreBar value={item.value} delay={delay + i * 80} />
+              {item.tip && (
+                <div style={{
+                  marginTop: 6, padding: "8px 12px", background: `${BRAND.orange}08`,
+                  borderLeft: `3px solid ${BRAND.orange}40`, borderRadius: "0 6px 6px 0",
+                  fontSize: 12, color: BRAND.darkGray, lineHeight: 1.4,
+                }}>
+                  💡 <strong style={{ color: BRAND.orange }}>AI Opportunity:</strong> {item.tip}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div style={{ textAlign: "center", marginTop: 12, fontSize: 11, color: `${BRAND.darkGray}80` }}>
+        {expanded ? "▲ Collapse" : "▼ Tap to see AI opportunities"}
+      </div>
+    </div>
+  );
+}
+
+// ── Opportunity Card ───────────────────────────────────────────
+function OpportunityCard({ opportunity, overallScore }) {
+  const readiness = getReadinessLevel(overallScore);
+  return (
+    <div style={{
+      background: `linear-gradient(135deg, ${BRAND.navy} 0%, #0A1B5E 100%)`,
+      borderRadius: 20, padding: "32px 36px", color: BRAND.white,
+      position: "relative", overflow: "hidden",
+      opacity: 0, animation: "slideUp 0.5s ease 600ms forwards",
+    }}>
+      {/* Decorative glow */}
+      <div style={{
+        position: "absolute", top: -40, right: -40, width: 200, height: 200,
+        borderRadius: "50%", background: `${BRAND.orange}15`, filter: "blur(60px)",
+      }} />
+
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <div style={{
+          display: "inline-block", padding: "4px 14px", borderRadius: 20,
+          background: `${readiness.color}25`, border: `1px solid ${readiness.color}50`,
+          fontSize: 12, fontWeight: 700, color: readiness.color, marginBottom: 16,
+          letterSpacing: 0.5,
+        }}>
+          AI READINESS: {readiness.level.toUpperCase()}
+        </div>
+
+        <h3 style={{ fontSize: 22, fontWeight: 800, marginBottom: 8, lineHeight: 1.3 }}>
+          What AI Agents Could Do For Your Practice
+        </h3>
+        <p style={{ fontSize: 14, color: `${BRAND.white}80`, lineHeight: 1.6, marginBottom: 28 }}>
+          {readiness.message}
+        </p>
+
+        {/* Impact metrics */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 28 }}>
+          <div style={{ textAlign: "center", padding: "16px 8px", background: `${BRAND.white}08`, borderRadius: 12 }}>
+            <div style={{ fontSize: 32, fontWeight: 800, color: BRAND.orange, fontFamily: "'Space Grotesk', sans-serif" }}>
+              <AnimatedNumber target={opportunity.hoursPerWeek} delay={800} suffix="+" />
+            </div>
+            <div style={{ fontSize: 11, color: `${BRAND.white}70`, marginTop: 4, lineHeight: 1.3 }}>
+              Hours/week an AI agent could save your team
+            </div>
+          </div>
+          <div style={{ textAlign: "center", padding: "16px 8px", background: `${BRAND.white}08`, borderRadius: 12 }}>
+            <div style={{ fontSize: 32, fontWeight: 800, color: BRAND.orange, fontFamily: "'Space Grotesk', sans-serif" }}>
+              <AnimatedNumber target={opportunity.revenueAtRisk} delay={1000} prefix="$" />
+            </div>
+            <div style={{ fontSize: 11, color: `${BRAND.white}70`, marginTop: 4, lineHeight: 1.3 }}>
+              Estimated monthly revenue at risk from slow response
+            </div>
+          </div>
+          <div style={{ textAlign: "center", padding: "16px 8px", background: `${BRAND.white}08`, borderRadius: 12 }}>
+            <div style={{ fontSize: 32, fontWeight: 800, color: BRAND.orange, fontFamily: "'Space Grotesk', sans-serif" }}>
+              <AnimatedNumber target={opportunity.missedLeads} delay={1200} suffix="/mo" />
+            </div>
+            <div style={{ fontSize: 11, color: `${BRAND.white}70`, marginTop: 4, lineHeight: 1.3 }}>
+              Potential leads lost to competitors with faster AI responses
+            </div>
+          </div>
+        </div>
+
+        {/* AI Agent suggestions */}
+        <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.orange, marginBottom: 12, letterSpacing: 0.5 }}>
+          🤖 RECOMMENDED AI AGENTS FOR YOUR PRACTICE:
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {[
+            { name: "AI Receptionist Agent", desc: "Answers calls, books appointments, handles enquiries 24/7", impact: "Saves 20+ hrs/week", icon: "📞" },
+            { name: "Client Intake Agent", desc: "Pre-qualifies leads, collects documents, onboards clients automatically", impact: "3x faster intake", icon: "📋" },
+            { name: "Follow-Up Agent", desc: "Nurtures leads, sends reminders, re-engages lost prospects", impact: "Recovers 30% lost leads", icon: "🔄" },
+            { name: "Reputation Agent", desc: "Monitors reviews, generates responses, builds online presence", impact: "+40% review volume", icon: "⭐" },
+          ].map((agent, i) => (
+            <div key={i} style={{
+              display: "flex", alignItems: "center", gap: 14,
+              padding: "12px 16px", background: `${BRAND.white}06`, borderRadius: 10,
+              border: `1px solid ${BRAND.white}10`,
+            }}>
+              <div style={{ fontSize: 22 }}>{agent.icon}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 14, fontWeight: 700 }}>{agent.name}</div>
+                <div style={{ fontSize: 12, color: `${BRAND.white}70` }}>{agent.desc}</div>
+              </div>
+              <div style={{
+                padding: "4px 10px", background: `${BRAND.success}25`,
+                borderRadius: 6, fontSize: 11, fontWeight: 700, color: BRAND.success,
+                whiteSpace: "nowrap",
+              }}>
+                {agent.impact}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Main App ───────────────────────────────────────────────────
+function BusinessGrader() {
+  const [url, setUrl] = useState("");
+  const [email, setEmail] = useState("");
+  const [industry, setIndustry] = useState("");
+  const [phase, setPhase] = useState("landing");
+  const [scores, setScores] = useState(null);
+  const [scanStep, setScanStep] = useState(0);
+  const [overallScore, setOverallScore] = useState(0);
+
+  const scanSteps = [
+    { label: "Analysing your digital foundation...", icon: "🌐" },
+    { label: "Mapping automation opportunities...", icon: "⚡" },
+    { label: "Evaluating client experience channels...", icon: "💬" },
+    { label: "Testing AI search visibility...", icon: "🤖" },
+    { label: "Calculating AI readiness score...", icon: "🧠" },
+    { label: "Generating your report...", icon: "📊" },
+  ];
+
+  const handleScan = () => {
+    if (!url.trim()) return;
+    setPhase("scanning");
+    setScanStep(0);
+    const s = generateScores(url.trim().toLowerCase());
+    setScores(s);
+    setOverallScore(Math.round((s.digital.score + s.automation.score + s.cx.score + s.visibility.score) / 4));
+    scanSteps.forEach((_, i) => setTimeout(() => setScanStep(i + 1), (i + 1) * 900));
+    setTimeout(() => setPhase("results"), scanSteps.length * 900 + 500);
+  };
+
+  const handleEmailSubmit = () => {
+    if (email.includes("@")) {
+      // Submit email to server
+      fetch("/submit-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, url }),
+      }).catch(() => {});
+      setPhase("email_done");
+    }
+  };
+
+  const grade = getGrade(overallScore);
+  const readiness = getReadinessLevel(overallScore);
+  const opportunity = scores ? estimateOpportunity(scores) : null;
+
+  return (
+    <div style={{
+      minHeight: "100vh",
+      fontFamily: "'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+      background: phase === "landing" ? BRAND.navy : BRAND.lightGray,
+      transition: "background 0.8s ease",
+    }}>
+
+      {/* ═══ LANDING ═══ */}
+      {phase === "landing" && (
+        <div style={{
+          minHeight: "100vh", display: "flex", flexDirection: "column",
+          alignItems: "center", justifyContent: "center", padding: "40px 20px",
+          background: `
+            radial-gradient(ellipse at 15% 80%, ${BRAND.orange}12 0%, transparent 50%),
+            radial-gradient(ellipse at 85% 20%, ${BRAND.purple}08 0%, transparent 50%),
+            radial-gradient(ellipse at 50% 50%, #0A1B5E 0%, ${BRAND.navy} 100%)
+          `,
+        }}>
+          {/* Logo */}
+          <div style={{
+            display: "flex", alignItems: "center", gap: 10, marginBottom: 52,
+            opacity: 0, animation: "fadeDown 0.6s ease forwards",
+          }}>
+            <div style={{
+              width: 38, height: 38, borderRadius: 10, background: BRAND.orange,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontSize: 18, fontWeight: 900, color: BRAND.white,
+            }}>B</div>
+            <span style={{ color: BRAND.white, fontSize: 17, fontWeight: 700, letterSpacing: -0.3 }}>
+              BusinessGrader
+            </span>
+            <span style={{
+              fontSize: 9, fontWeight: 700, color: BRAND.orange,
+              border: `1px solid ${BRAND.orange}60`, borderRadius: 4, padding: "3px 7px",
+              letterSpacing: 1.2, textTransform: "uppercase",
+            }}>by AgenticScale</span>
+          </div>
+
+          {/* Badge */}
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 8,
+            padding: "6px 16px", borderRadius: 24,
+            background: `${BRAND.orange}15`, border: `1px solid ${BRAND.orange}30`,
+            marginBottom: 24,
+            opacity: 0, animation: "fadeDown 0.6s ease 0.1s forwards",
+          }}>
+            <span style={{ fontSize: 13 }}>🤖</span>
+            <span style={{ fontSize: 12, fontWeight: 600, color: BRAND.orange }}>
+              Free AI-Readiness Assessment for Professional Practices
+            </span>
+          </div>
+
+          {/* Headline */}
+          <h1 style={{
+            color: BRAND.white, fontSize: "clamp(32px, 5.5vw, 58px)", fontWeight: 800,
+            textAlign: "center", lineHeight: 1.08, letterSpacing: -1.5,
+            maxWidth: 680, margin: "0 0 20px 0",
+            fontFamily: "'Space Grotesk', sans-serif",
+            opacity: 0, animation: "fadeDown 0.6s ease 0.2s forwards",
+          }}>
+            Is your practice ready for{" "}
+            <span style={{
+              background: `linear-gradient(135deg, ${BRAND.orange}, #FF8C42)`,
+              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+            }}>AI agents?</span>
+          </h1>
+
+          <p style={{
+            color: `${BRAND.white}85`, fontSize: 17, textAlign: "center",
+            maxWidth: 540, lineHeight: 1.65, margin: "0 0 12px 0",
+            opacity: 0, animation: "fadeDown 0.6s ease 0.3s forwards",
+          }}>
+            In 60 seconds, discover how AI-ready your practice is — and see exactly which AI agents could save you 20+ hours a week, capture more clients, and outperform your competitors.
+          </p>
+
+          <p style={{
+            color: `${BRAND.white}50`, fontSize: 13, textAlign: "center",
+            maxWidth: 460, lineHeight: 1.5, margin: "0 0 36px 0",
+            opacity: 0, animation: "fadeDown 0.6s ease 0.35s forwards",
+          }}>
+            The same assessment consultants charge $3,000+ for — powered by our Clawbot AI agent team.
+          </p>
+
+          {/* Industry selector */}
+          <div style={{
+            display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap", justifyContent: "center",
+            opacity: 0, animation: "fadeDown 0.6s ease 0.4s forwards",
+          }}>
+            {[
+              { val: "legal", label: "⚖️ Law Firm" },
+              { val: "accounting", label: "📊 Accounting" },
+              { val: "medical", label: "🏥 Medical / Clinic" },
+              { val: "dental", label: "🦷 Dental" },
+              { val: "financial", label: "💰 Financial Services" },
+              { val: "other", label: "🏢 Other" },
+            ].map((opt) => (
+              <button key={opt.val} onClick={() => setIndustry(opt.val)}
+                style={{
+                  padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600,
+                  border: `1px solid ${industry === opt.val ? BRAND.orange : BRAND.white + "20"}`,
+                  background: industry === opt.val ? `${BRAND.orange}20` : `${BRAND.white}08`,
+                  color: industry === opt.val ? BRAND.orange : `${BRAND.white}80`,
+                  cursor: "pointer", fontFamily: "inherit", transition: "all 0.2s",
+                }}>
+                {opt.label}
+              </button>
+            ))}
+          </div>
+
+          {/* URL Input */}
+          <div style={{
+            display: "flex", gap: 0, maxWidth: 520, width: "100%",
+            borderRadius: 14, overflow: "hidden",
+            boxShadow: `0 24px 64px ${BRAND.orange}20, 0 0 0 1px ${BRAND.white}10`,
+            opacity: 0, animation: "fadeDown 0.6s ease 0.5s forwards",
+          }}>
+            <input type="text" value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleScan()}
+              placeholder="Enter your website URL..."
+              style={{
+                flex: 1, padding: "17px 22px", fontSize: 15, border: "none", outline: "none",
+                background: BRAND.white, color: BRAND.navy, fontFamily: "inherit",
+              }}
+            />
+            <button onClick={handleScan}
+              style={{
+                padding: "17px 28px", background: BRAND.orange, color: BRAND.white,
+                border: "none", fontSize: 15, fontWeight: 700, cursor: "pointer",
+                whiteSpace: "nowrap", fontFamily: "inherit", transition: "background 0.2s",
+              }}
+              onMouseOver={(e) => (e.target.style.background = "#E65000")}
+              onMouseOut={(e) => (e.target.style.background = BRAND.orange)}
+            >
+              Check My AI Readiness →
+            </button>
+          </div>
+
+          {/* Stats bar */}
+          <div style={{
+            display: "flex", gap: 40, marginTop: 56,
+            opacity: 0, animation: "fadeDown 0.6s ease 0.65s forwards",
+          }}>
+            {[
+              { num: "2,400+", label: "Practices scored" },
+              { num: "73%", label: "Score below 50" },
+              { num: "42hrs", label: "Avg. weekly savings" },
+            ].map((s, i) => (
+              <div key={i} style={{ textAlign: "center" }}>
+                <div style={{ fontSize: 20, fontWeight: 800, color: BRAND.orange }}>{s.num}</div>
+                <div style={{ fontSize: 11, color: `${BRAND.white}50`, marginTop: 2 }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <p style={{
+            color: `${BRAND.white}30`, fontSize: 11, marginTop: 56,
+            opacity: 0, animation: "fadeDown 0.6s ease 0.8s forwards",
+          }}>
+            No login • No credit card • Results in 60 seconds • Powered by Clawbot AI
+          </p>
+        </div>
+      )}
+
+      {/* ═══ SCANNING ═══ */}
+      {phase === "scanning" && (
+        <div style={{
+          minHeight: "100vh", display: "flex", flexDirection: "column",
+          alignItems: "center", justifyContent: "center", padding: 40,
+          background: `radial-gradient(ellipse at 50% 50%, #0A1B5E 0%, ${BRAND.navy} 100%)`,
+        }}>
+          <div style={{
+            width: 88, height: 88, borderRadius: 22,
+            background: `${BRAND.orange}15`, border: `2px solid ${BRAND.orange}30`,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            marginBottom: 28, animation: "pulse 1.5s ease infinite",
+          }}>
+            <div style={{ fontSize: 40 }}>
+              {scanSteps[Math.min(scanStep, scanSteps.length - 1)]?.icon || "✨"}
+            </div>
+          </div>
+
+          <h2 style={{ color: BRAND.white, fontSize: 22, fontWeight: 700, marginBottom: 6 }}>
+            Assessing AI Readiness
+          </h2>
+          <p style={{ color: `${BRAND.white}60`, fontSize: 14, marginBottom: 32, fontFamily: "'JetBrains Mono', monospace" }}>
+            {url}
+          </p>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 380, width: "100%" }}>
+            {scanSteps.map((step, i) => (
+              <div key={i} style={{
+                display: "flex", alignItems: "center", gap: 14,
+                opacity: scanStep > i ? 1 : scanStep === i ? 0.6 : 0.2,
+                transition: "opacity 0.5s ease",
+              }}>
+                <div style={{
+                  width: 28, height: 28, borderRadius: 8,
+                  background: scanStep > i ? `${BRAND.success}25` : `${BRAND.white}10`,
+                  border: `1px solid ${scanStep > i ? BRAND.success + "50" : BRAND.white + "15"}`,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 12, fontWeight: 700,
+                  color: scanStep > i ? BRAND.success : `${BRAND.white}40`,
+                  transition: "all 0.4s",
+                }}>
+                  {scanStep > i ? "✓" : step.icon}
+                </div>
+                <span style={{ color: BRAND.white, fontSize: 14, fontWeight: 500 }}>{step.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{
+            width: "100%", maxWidth: 380, height: 4,
+            background: `${BRAND.white}10`, borderRadius: 2, marginTop: 36, overflow: "hidden",
+          }}>
+            <div style={{
+              height: "100%", background: `linear-gradient(90deg, ${BRAND.orange}, #FF8C42)`,
+              borderRadius: 2, width: `${(scanStep / scanSteps.length) * 100}%`,
+              transition: "width 0.7s ease",
+            }} />
+          </div>
+        </div>
+      )}
+
+      {/* ═══ RESULTS ═══ */}
+      {(phase === "results" || phase === "email_done") && scores && (
+        <div style={{ padding: "0 20px 60px" }}>
+          {/* Top nav */}
+          <div style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            padding: "14px 24px", background: BRAND.navy, borderRadius: "0 0 16px 16px",
+            maxWidth: 920, margin: "0 auto 28px",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{
+                width: 28, height: 28, borderRadius: 7, background: BRAND.orange,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                fontSize: 14, fontWeight: 900, color: BRAND.white,
+              }}>B</div>
+              <span style={{ color: BRAND.white, fontSize: 14, fontWeight: 700 }}>BusinessGrader</span>
+              <span style={{ color: `${BRAND.white}40`, fontSize: 11 }}>AI Readiness Report</span>
+            </div>
+            <button onClick={() => { setPhase("landing"); setUrl(""); setScores(null); setEmail(""); }}
+              style={{
+                padding: "7px 18px", background: `${BRAND.white}12`, color: BRAND.white,
+                border: "none", borderRadius: 8, fontSize: 12, fontWeight: 600,
+                cursor: "pointer", fontFamily: "inherit",
+              }}>
+              ← Score Another Practice
+            </button>
+          </div>
+
+          <div style={{ maxWidth: 920, margin: "0 auto" }}>
+            {/* ── Hero Score Card ── */}
+            <div style={{
+              background: BRAND.white, borderRadius: 24, padding: "40px 44px",
+              textAlign: "center", marginBottom: 20,
+              boxShadow: "0 4px 24px rgba(0,0,0,0.06)", border: `1px solid ${BRAND.midGray}`,
+              opacity: 0, animation: "slideUp 0.5s ease 100ms forwards",
+            }}>
+              <div style={{
+                display: "inline-flex", alignItems: "center", gap: 6,
+                padding: "5px 14px", borderRadius: 20,
+                background: `${readiness.color}12`, border: `1px solid ${readiness.color}30`,
+                fontSize: 12, fontWeight: 700, color: readiness.color, marginBottom: 16,
+              }}>
+                🧠 AI READINESS: {readiness.level.toUpperCase()}
+              </div>
+
+              <div style={{
+                fontSize: 13, color: BRAND.darkGray, fontWeight: 500, marginBottom: 4,
+                letterSpacing: 0.5, textTransform: "uppercase",
+              }}>
+                AI Readiness Score for
+              </div>
+              <div style={{
+                fontSize: 18, fontWeight: 700, color: BRAND.navy, marginBottom: 32,
+                fontFamily: "'JetBrains Mono', monospace",
+              }}>
+                {url}
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
+                <ScoreRing score={overallScore} size={190} strokeWidth={12} delay={0} />
+              </div>
+
+              <div style={{
+                fontSize: 18, fontWeight: 800, color: BRAND.navy, marginBottom: 4,
+                fontFamily: "'Space Grotesk', sans-serif",
+              }}>
+                {grade.label}
+              </div>
+              <div style={{ fontSize: 14, color: BRAND.darkGray, maxWidth: 500, margin: "0 auto", lineHeight: 1.5 }}>
+                {readiness.message}
+              </div>
+
+              {/* Mini dimension summary */}
+              <div style={{
+                display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 12,
+                marginTop: 28, padding: "20px 16px", background: BRAND.lightGray, borderRadius: 14,
+              }}>
+                {[scores.digital, scores.automation, scores.cx, scores.visibility].map((d, i) => {
+                  const g = getGrade(d.score);
+                  return (
+                    <div key={i} style={{ textAlign: "center" }}>
+                      <div style={{ fontSize: 18 }}>{d.icon}</div>
+                      <div style={{ fontSize: 24, fontWeight: 800, color: BRAND.navy, fontFamily: "'Space Grotesk', sans-serif" }}>
+                        <AnimatedNumber target={d.score} delay={200 + i * 150} />
+                      </div>
+                      <div style={{ fontSize: 10, fontWeight: 700, color: g.color }}>{g.letter}</div>
+                      <div style={{ fontSize: 10, color: BRAND.darkGray, marginTop: 2 }}>{d.label}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* ── AI Opportunity Card ── */}
+            <div style={{ marginBottom: 20 }}>
+              <OpportunityCard opportunity={opportunity} overallScore={overallScore} />
+            </div>
+
+            {/* ── Dimension Detail Cards ── */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 24 }}>
+              {[scores.digital, scores.automation, scores.cx, scores.visibility].map((dim, i) => (
+                <DimensionCard key={i} dimension={dim} index={i} />
+              ))}
+            </div>
+
+            {/* ── Email CTA ── */}
+            {phase === "results" && (
+              <div style={{
+                background: `linear-gradient(135deg, ${BRAND.navy} 0%, #0A1B5E 100%)`,
+                borderRadius: 20, padding: "40px 44px", textAlign: "center",
+                position: "relative", overflow: "hidden",
+                opacity: 0, animation: "slideUp 0.5s ease 800ms forwards",
+              }}>
+                <div style={{
+                  position: "absolute", bottom: -60, left: -60, width: 250, height: 250,
+                  borderRadius: "50%", background: `${BRAND.orange}10`, filter: "blur(80px)",
+                }} />
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <div style={{ fontSize: 32, marginBottom: 12 }}>📋</div>
+                  <h3 style={{ color: BRAND.white, fontSize: 24, fontWeight: 800, marginBottom: 8, fontFamily: "'Space Grotesk', sans-serif" }}>
+                    Get Your Full AI Transformation Roadmap
+                  </h3>
+                  <p style={{ color: `${BRAND.white}75`, fontSize: 14, maxWidth: 480, margin: "0 auto 8px", lineHeight: 1.6 }}>
+                    Receive a detailed 20-page report with your personalised AI agent implementation plan, ROI projections, and step-by-step roadmap — the same analysis we deliver in our $5,000 discovery engagements.
+                  </p>
+                  <p style={{ color: BRAND.orange, fontSize: 13, fontWeight: 700, marginBottom: 24 }}>
+                    Free for a limited time.
+                  </p>
+                  <div style={{ display: "flex", gap: 0, maxWidth: 460, margin: "0 auto", borderRadius: 12, overflow: "hidden" }}>
+                    <input type="email" value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleEmailSubmit()}
+                      placeholder="Enter your work email"
+                      style={{
+                        flex: 1, padding: "15px 20px", fontSize: 15,
+                        border: "none", outline: "none", fontFamily: "inherit",
+                      }}
+                    />
+                    <button onClick={handleEmailSubmit}
+                      style={{
+                        padding: "15px 28px", background: BRAND.orange, color: BRAND.white,
+                        border: "none", fontSize: 15, fontWeight: 700, cursor: "pointer",
+                        fontFamily: "inherit", whiteSpace: "nowrap",
+                      }}>
+                      Send My Roadmap →
+                    </button>
+                  </div>
+                  <p style={{ color: `${BRAND.white}35`, fontSize: 11, marginTop: 14 }}>
+                    No spam • Instant delivery • Includes AI agent ROI calculator
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {phase === "email_done" && (
+              <div style={{
+                background: BRAND.white, border: `2px solid ${BRAND.success}30`,
+                borderRadius: 20, padding: "40px 44px", textAlign: "center",
+                opacity: 0, animation: "slideUp 0.3s ease forwards",
+              }}>
+                <div style={{ fontSize: 44, marginBottom: 12 }}>🚀</div>
+                <h3 style={{ color: BRAND.navy, fontSize: 24, fontWeight: 800, marginBottom: 8, fontFamily: "'Space Grotesk', sans-serif" }}>
+                  Your AI Transformation Roadmap is on its way!
+                </h3>
+                <p style={{ color: BRAND.darkGray, fontSize: 14, marginBottom: 28, lineHeight: 1.5 }}>
+                  Check <strong>{email}</strong> for your personalised report. Want to see how fast we can deploy AI agents for your practice?
+                </p>
+                <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
+                  <button style={{
+                    padding: "13px 28px", background: BRAND.orange, color: BRAND.white,
+                    border: "none", borderRadius: 10, fontSize: 14, fontWeight: 700,
+                    cursor: "pointer", fontFamily: "inherit",
+                  }}>
+                    Book a Free AI Strategy Call 📞
+                  </button>
+                  <button style={{
+                    padding: "13px 28px", background: BRAND.navy, color: BRAND.white,
+                    border: "none", borderRadius: 10, fontSize: 14, fontWeight: 700,
+                    cursor: "pointer", fontFamily: "inherit",
+                  }}>
+                    Share Score on LinkedIn 📤
+                  </button>
+                  <button onClick={() => { setPhase("landing"); setUrl(""); setScores(null); setEmail(""); }}
+                    style={{
+                      padding: "13px 28px", background: BRAND.lightGray, color: BRAND.navy,
+                      border: `1px solid ${BRAND.midGray}`, borderRadius: 10, fontSize: 14, fontWeight: 700,
+                      cursor: "pointer", fontFamily: "inherit",
+                    }}>
+                    Score a Competitor 🔍
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Footer */}
+            <div style={{ textAlign: "center", marginTop: 48, padding: "24px 0", borderTop: `1px solid ${BRAND.midGray}` }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 6 }}>
+                <div style={{
+                  width: 22, height: 22, borderRadius: 6, background: BRAND.orange,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 11, fontWeight: 900, color: BRAND.white,
+                }}>B</div>
+                <span style={{ fontSize: 13, fontWeight: 700, color: BRAND.navy }}>BusinessGrader</span>
+                <span style={{ fontSize: 10, color: BRAND.darkGray }}>by AgenticScale.ai</span>
+              </div>
+              <p style={{ fontSize: 11, color: BRAND.darkGray }}>
+                Powered by Clawbot AI Agents • Built on Azure + Anthropic Claude • © 2026 AgenticScale
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes fadeDown {
+          from { opacity: 0; transform: translateY(-20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(24px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.06); opacity: 0.85; }
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        ::placeholder { color: #9CA3AF; }
+        input:focus { outline: 2px solid #FF5A0040; }
+        @media (max-width: 700px) {
+          div[style*="gridTemplateColumns: 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<BusinessGrader />);
+  </script>
+</body>
+</html>

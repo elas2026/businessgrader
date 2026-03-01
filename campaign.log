@@ -1,0 +1,299 @@
+2026-02-24 10:20:06  INFO      ============================================================
+2026-02-24 10:20:06  INFO      BusinessGrader Campaign Sender — 🔍 DRY-RUN
+2026-02-24 10:20:06  INFO      Targets: 5
+2026-02-24 10:20:06  INFO      Rate limit: 1 email / 3 seconds
+2026-02-24 10:20:06  INFO      ============================================================
+2026-02-24 10:20:06  INFO      [1/5] → reception@norwoodtaxaccounting.com.au | Norwood Tax & Accounting (accounting, Norwood SA)
+2026-02-24 10:20:06  INFO        Subject : While you're doing tax returns, AI is changing accounting
+2026-02-24 10:20:06  INFO        To      : reception@norwoodtaxaccounting.com.au
+2026-02-24 10:20:06  INFO        Contact : Jack Peterson
+2026-02-24 10:20:06  INFO        [DRY-RUN — no email sent]
+2026-02-24 10:20:06  INFO      [2/5] → admin@bakercocharteredaccountants.com.au | Baker & Co Chartered Accountants (accounting, Manly NSW)
+2026-02-24 10:20:06  INFO        Subject : While you're doing tax returns, AI is changing accounting
+2026-02-24 10:20:06  INFO        To      : admin@bakercocharteredaccountants.com.au
+2026-02-24 10:20:06  INFO        Contact : Rachel Jones
+2026-02-24 10:20:06  INFO        [DRY-RUN — no email sent]
+2026-02-24 10:20:06  INFO      [3/5] → reception@blueskyfinancialtownsville.com.au | BlueSky Financial Townsville (financial_services, Townsville QLD)
+2026-02-24 10:20:06  INFO        Subject : AI is changing financial advice — where does your firm stand?
+2026-02-24 10:20:06  INFO        To      : reception@blueskyfinancialtownsville.com.au
+2026-02-24 10:20:06  INFO        Contact : Christopher Cox
+2026-02-24 10:20:06  INFO        [DRY-RUN — no email sent]
+2026-02-24 10:20:06  INFO      [4/5] → contact@salisburyfinancialaccounting.com.au | Salisbury Financial Accounting (accounting, Salisbury SA)
+2026-02-24 10:20:06  INFO        Subject : While you're doing tax returns, AI is changing accounting
+2026-02-24 10:20:06  INFO        To      : contact@salisburyfinancialaccounting.com.au
+2026-02-24 10:20:06  INFO        Contact : Patrick Brown
+2026-02-24 10:20:06  INFO        [DRY-RUN — no email sent]
+2026-02-24 10:20:06  INFO      [5/5] → contact@salisburyemploymentlaw.com.au | Salisbury Employment Law (legal, Salisbury SA)
+2026-02-24 10:20:06  INFO        Subject : We checked your firm's AI score — you might be surprised
+2026-02-24 10:20:06  INFO        To      : contact@salisburyemploymentlaw.com.au
+2026-02-24 10:20:06  INFO        Contact : Liam Cook
+2026-02-24 10:20:06  INFO        [DRY-RUN — no email sent]
+2026-02-24 10:20:06  INFO      ============================================================
+2026-02-24 10:20:06  INFO      Campaign complete — Sent: 5 | Errors: 0
+2026-02-24 10:20:06  INFO      ============================================================
+2026-02-24 19:00:08  INFO      ============================================================
+2026-02-24 19:00:08  INFO      BusinessGrader Campaign Sender — 🚀 LIVE
+2026-02-24 19:00:08  INFO      Targets: 100
+2026-02-24 19:00:08  INFO      Rate limit: 1 email / 3 seconds
+2026-02-24 19:00:08  INFO      ============================================================
+2026-02-24 19:00:08  INFO      [1/100] → reception@norwoodtaxaccounting.com.au | Norwood Tax & Accounting (accounting, Norwood SA)
+2026-02-24 19:00:09  INFO        ✅ Sent OK: Email sent to reception@norwoodtaxaccounting.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:00:12  INFO      [2/100] → admin@bakercocharteredaccountants.com.au | Baker & Co Chartered Accountants (accounting, Manly NSW)
+2026-02-24 19:00:13  INFO        ✅ Sent OK: Email sent to admin@bakercocharteredaccountants.com.au (CC: emily.loving@agentic
+2026-02-24 19:00:16  INFO      [3/100] → reception@blueskyfinancialtownsville.com.au | BlueSky Financial Townsville (financial_services, Townsville QLD)
+2026-02-24 19:00:17  INFO        ✅ Sent OK: Email sent to reception@blueskyfinancialtownsville.com.au (CC: emily.loving@agen
+2026-02-24 19:00:20  INFO      [4/100] → contact@salisburyfinancialaccounting.com.au | Salisbury Financial Accounting (accounting, Salisbury SA)
+2026-02-24 19:00:21  INFO        ✅ Sent OK: Email sent to contact@salisburyfinancialaccounting.com.au (CC: emily.loving@agen
+2026-02-24 19:00:24  INFO      [5/100] → contact@salisburyemploymentlaw.com.au | Salisbury Employment Law (legal, Salisbury SA)
+2026-02-24 19:00:24  INFO        ✅ Sent OK: Email sent to contact@salisburyemploymentlaw.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:00:27  INFO      [6/100] → info@powellassociateslawyers.com.au | Powell & Associates Lawyers (legal, Richmond VIC)
+2026-02-24 19:00:28  INFO        ✅ Sent OK: Email sent to info@powellassociateslawyers.com.au (CC: emily.loving@agenticscale
+2026-02-24 19:00:31  INFO      [7/100] → office@fremantledentalstudio.com.au | Fremantle Dental Studio (dental, Fremantle WA)
+2026-02-24 19:00:32  INFO        ✅ Sent OK: Email sent to office@fremantledentalstudio.com.au (CC: emily.loving@agenticscale
+2026-02-24 19:00:35  INFO      [8/100] → contact@boxhillpropertylaw.com.au | Box Hill Property Law (legal, Box Hill VIC)
+2026-02-24 19:00:35  INFO        ✅ Sent OK: Email sent to contact@boxhillpropertylaw.com.au (CC: emily.loving@agenticscale.a
+2026-02-24 19:00:38  INFO      [9/100] → contact@hillfinancialadvisors.com.au | Hill Financial Advisors (financial_services, Penrith NSW)
+2026-02-24 19:00:39  INFO        ✅ Sent OK: Email sent to contact@hillfinancialadvisors.com.au (CC: emily.loving@agenticscal
+2026-02-24 19:00:42  INFO      [10/100] → hello@carmichaelfletchersolicitors.com.au | Carmichael & Fletcher Solicitors (legal, St Kilda VIC)
+2026-02-24 19:00:43  INFO        ✅ Sent OK: Email sent to hello@carmichaelfletchersolicitors.com.au (CC: emily.loving@agenti
+2026-02-24 19:00:46  INFO      [11/100] → hello@summitconsultingnewcastle.com.au | Summit Consulting Newcastle (other, Newcastle NSW)
+2026-02-24 19:00:46  INFO        ✅ Sent OK: Email sent to hello@summitconsultingnewcastle.com.au (CC: emily.loving@agenticsc
+2026-02-24 19:00:49  INFO      [12/100] → contact@fremantlebusinessconsulting.com.au | Fremantle Business Consulting (other, Fremantle WA)
+2026-02-24 19:00:50  INFO        ✅ Sent OK: Email sent to contact@fremantlebusinessconsulting.com.au (CC: emily.loving@agent
+2026-02-24 19:00:53  INFO      [13/100] → admin@clarityconsultingspringhill.com.au | Clarity Consulting Spring Hill (other, Spring Hill QLD)
+2026-02-24 19:00:54  INFO        ✅ Sent OK: Email sent to admin@clarityconsultingspringhill.com.au (CC: emily.loving@agentic
+2026-02-24 19:00:57  INFO      [14/100] → reception@whyallamedicalgroup.com.au | Whyalla Medical Group (medical, Whyalla SA)
+2026-02-24 19:00:58  INFO        ✅ Sent OK: Email sent to reception@whyallamedicalgroup.com.au (CC: emily.loving@agenticscal
+2026-02-24 19:01:01  INFO      [15/100] → info@horizonwealthbrisbane.com.au | Horizon Wealth Brisbane (financial_services, Brisbane QLD)
+2026-02-24 19:01:01  INFO        ✅ Sent OK: Email sent to info@horizonwealthbrisbane.com.au (CC: emily.loving@agenticscale.a
+2026-02-24 19:01:04  INFO      [16/100] → contact@westfinancialadvisors.com.au | West Financial Advisors (financial_services, Midland WA)
+2026-02-24 19:01:05  INFO        ✅ Sent OK: Email sent to contact@westfinancialadvisors.com.au (CC: emily.loving@agenticscal
+2026-02-24 19:01:08  INFO      [17/100] → admin@morganbusinessservices.com.au | Morgan Business Services (accounting, Townsville QLD)
+2026-02-24 19:01:09  INFO        ✅ Sent OK: Email sent to admin@morganbusinessservices.com.au (CC: emily.loving@agenticscale
+2026-02-24 19:01:12  INFO      [18/100] → contact@centralrockhamptonmedical.com.au | Central Rockhampton Medical (medical, Rockhampton QLD)
+2026-02-24 19:01:13  INFO        ✅ Sent OK: Email sent to contact@centralrockhamptonmedical.com.au (CC: emily.loving@agentic
+2026-02-24 19:01:16  INFO      [19/100] → reception@salisburysmeaccounting.com.au | Salisbury SME Accounting (accounting, Salisbury SA)
+2026-02-24 19:01:16  INFO        ✅ Sent OK: Email sent to reception@salisburysmeaccounting.com.au (CC: emily.loving@agentics
+2026-02-24 19:01:19  INFO      [20/100] → office@centralspringhillmedical.com.au | Central Spring Hill Medical (medical, Spring Hill QLD)
+2026-02-24 19:01:20  INFO        ✅ Sent OK: Email sent to office@centralspringhillmedical.com.au (CC: emily.loving@agenticsc
+2026-02-24 19:01:23  INFO      [21/100] → info@cooperdentalgroup.com.au | Cooper Dental Group (dental, Adelaide SA)
+2026-02-24 19:01:24  INFO        ✅ Sent OK: Email sent to info@cooperdentalgroup.com.au (CC: emily.loving@agenticscale.ai)
+2026-02-24 19:01:27  INFO      [22/100] → admin@grahamfinancialgroup.com.au | Graham Financial Group (financial_services, Box Hill VIC)
+2026-02-24 19:01:27  INFO        ✅ Sent OK: Email sent to admin@grahamfinancialgroup.com.au (CC: emily.loving@agenticscale.a
+2026-02-24 19:01:30  INFO      [23/100] → admin@bondifinancialaccounting.com.au | Bondi Financial Accounting (accounting, Bondi NSW)
+2026-02-24 19:01:31  INFO        ✅ Sent OK: Email sent to admin@bondifinancialaccounting.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:01:34  INFO      [24/100] → admin@dryoungdental.com.au | Dr Young Dental (dental, Melbourne VIC)
+2026-02-24 19:01:35  INFO        ✅ Sent OK: Email sent to admin@dryoungdental.com.au (CC: emily.loving@agenticscale.ai)
+2026-02-24 19:01:38  INFO      [25/100] → contact@gallagherdevereauxlegalcounsel.com.au | Gallagher & Devereaux Legal Counsel (legal, Cairns QLD)
+2026-02-24 19:01:38  INFO        ✅ Sent OK: Email sent to contact@gallagherdevereauxlegalcounsel.com.au (CC: emily.loving@ag
+2026-02-24 19:01:41  INFO      [26/100] → office@xavierlangfordpartners.com.au | Xavier & Langford & Partners (legal, Bondi NSW)
+2026-02-24 19:01:42  INFO        ✅ Sent OK: Email sent to office@xavierlangfordpartners.com.au (CC: emily.loving@agenticscal
+2026-02-24 19:01:45  INFO      [27/100] → admin@baysidefamilymedical.com.au | Bayside Family Medical (medical, Manly NSW)
+2026-02-24 19:01:46  INFO        ✅ Sent OK: Email sent to admin@baysidefamilymedical.com.au (CC: emily.loving@agenticscale.a
+2026-02-24 19:01:49  INFO      [28/100] → info@southportgpclinic.com.au | Southport GP Clinic (medical, Southport QLD)
+2026-02-24 19:01:50  INFO        ✅ Sent OK: Email sent to info@southportgpclinic.com.au (CC: emily.loving@agenticscale.ai)
+2026-02-24 19:01:53  INFO      [29/100] → admin@stkildafamilydentistry.com.au | St Kilda Family Dentistry (dental, St Kilda VIC)
+2026-02-24 19:01:53  INFO        ✅ Sent OK: Email sent to admin@stkildafamilydentistry.com.au (CC: emily.loving@agenticscale
+2026-02-24 19:01:56  INFO      [30/100] → hello@collinsbusinessservices.com.au | Collins Business Services (accounting, Newtown NSW)
+2026-02-24 19:01:57  INFO        ✅ Sent OK: Email sent to hello@collinsbusinessservices.com.au (CC: emily.loving@agenticscal
+2026-02-24 19:02:00  INFO      [31/100] → admin@rogersassociateslawyers.com.au | Rogers & Associates Lawyers (legal, Surry Hills NSW)
+2026-02-24 19:02:00  INFO        ✅ Sent OK: Email sent to admin@rogersassociateslawyers.com.au (CC: emily.loving@agenticscal
+2026-02-24 19:02:03  INFO      [32/100] → reception@prospectfamilylaw.com.au | Prospect Family Law (legal, Prospect SA)
+2026-02-24 19:02:04  INFO        ✅ Sent OK: Email sent to reception@prospectfamilylaw.com.au (CC: emily.loving@agenticscale.
+2026-02-24 19:02:07  INFO      [33/100] → info@surryhillsphysiotherapycentre.com.au | Surry Hills Physiotherapy Centre (other, Surry Hills NSW)
+2026-02-24 19:02:08  INFO        ✅ Sent OK: Email sent to info@surryhillsphysiotherapycentre.com.au (CC: emily.loving@agenti
+2026-02-24 19:02:11  INFO      [34/100] → hello@bendigocommunityhealth.com.au | Bendigo Community Health (medical, Bendigo VIC)
+2026-02-24 19:02:11  INFO        ✅ Sent OK: Email sent to hello@bendigocommunityhealth.com.au (CC: emily.loving@agenticscale
+2026-02-24 19:02:14  INFO      [35/100] → contact@morrisbusinessservices.com.au | Morris Business Services (accounting, Mount Gambier SA)
+2026-02-24 19:02:15  INFO        ✅ Sent OK: Email sent to contact@morrisbusinessservices.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:02:18  INFO      [36/100] → hello@brisbanearchitecturegroup.com.au | Brisbane Architecture Group (other, Brisbane QLD)
+2026-02-24 19:02:19  INFO        ✅ Sent OK: Email sent to hello@brisbanearchitecturegroup.com.au (CC: emily.loving@agenticsc
+2026-02-24 19:02:22  INFO      [37/100] → reception@fortitudevalleybusinesssolutio.com.au | Fortitude Valley Business Solutions (other, Fortitude Valley QLD)
+2026-02-24 19:02:22  INFO        ✅ Sent OK: Email sent to reception@fortitudevalleybusinesssolutio.com.au (CC: emily.loving@
+2026-02-24 19:02:25  INFO      [38/100] → admin@washingtonassociateslawyers.com.au | Washington & Associates Lawyers (legal, Spring Hill QLD)
+2026-02-24 19:02:26  INFO        ✅ Sent OK: Email sent to admin@washingtonassociateslawyers.com.au (CC: emily.loving@agentic
+2026-02-24 19:02:29  INFO      [39/100] → reception@baysidefamilymedical.com.au | Bayside Family Medical (medical, Penrith NSW)
+2026-02-24 19:02:30  INFO        ✅ Sent OK: Email sent to reception@baysidefamilymedical.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:02:33  INFO      [40/100] → hello@pinnaclefinancialsalisbury.com.au | Pinnacle Financial Salisbury (financial_services, Salisbury SA)
+2026-02-24 19:02:33  INFO        ✅ Sent OK: Email sent to hello@pinnaclefinancialsalisbury.com.au (CC: emily.loving@agentics
+2026-02-24 19:02:37  INFO      [41/100] → contact@manlyconveyancinglaw.com.au | Manly Conveyancing Law (legal, Manly NSW)
+2026-02-24 19:02:37  INFO        ✅ Sent OK: Email sent to contact@manlyconveyancinglaw.com.au (CC: emily.loving@agenticscale
+2026-02-24 19:02:40  INFO      [42/100] → reception@cooperassociateslawyers.com.au | Cooper & Associates Lawyers (legal, Chatswood NSW)
+2026-02-24 19:02:41  INFO        ✅ Sent OK: Email sent to reception@cooperassociateslawyers.com.au (CC: emily.loving@agentic
+2026-02-24 19:02:44  INFO      [43/100] → reception@fosterassociatesaccounting.com.au | Foster & Associates Accounting (accounting, Cairns QLD)
+2026-02-24 19:02:45  INFO        ✅ Sent OK: Email sent to reception@fosterassociatesaccounting.com.au (CC: emily.loving@agen
+2026-02-24 19:02:48  INFO      [44/100] → contact@springhillbusinesssolutions.com.au | Spring Hill Business Solutions (other, Spring Hill QLD)
+2026-02-24 19:02:48  INFO        ✅ Sent OK: Email sent to contact@springhillbusinesssolutions.com.au (CC: emily.loving@agent
+2026-02-24 19:02:51  INFO      [45/100] → info@stkildacorporatelaw.com.au | St Kilda Corporate Law (legal, St Kilda VIC)
+2026-02-24 19:02:52  INFO        ✅ Sent OK: Email sent to info@stkildacorporatelaw.com.au (CC: emily.loving@agenticscale.ai)
+2026-02-24 19:02:55  INFO      [46/100] → contact@salisburytaxaccounting.com.au | Salisbury Tax & Accounting (accounting, Salisbury SA)
+2026-02-24 19:02:56  INFO        ✅ Sent OK: Email sent to contact@salisburytaxaccounting.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:02:59  INFO      [47/100] → admin@woodswealthgroup.com.au | Woods Wealth Group (financial_services, Cottesloe WA)
+2026-02-24 19:03:00  INFO        ✅ Sent OK: Email sent to admin@woodswealthgroup.com.au (CC: emily.loving@agenticscale.ai)
+2026-02-24 19:03:03  INFO      [48/100] → info@lopezassociatesaccounting.com.au | Lopez & Associates Accounting (accounting, Adelaide SA)
+2026-02-24 19:03:03  INFO        ✅ Sent OK: Email sent to info@lopezassociatesaccounting.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:03:06  INFO      [49/100] → office@jordancocharteredaccountants.com.au | Jordan & Co Chartered Accountants (accounting, Whyalla SA)
+2026-02-24 19:03:07  INFO        ✅ Sent OK: Email sent to office@jordancocharteredaccountants.com.au (CC: emily.loving@agent
+2026-02-24 19:03:10  INFO      [50/100] → hello@wellingtonkingsleyassociates.com.au | Wellington & Kingsley & Associates (legal, Box Hill VIC)
+2026-02-24 19:03:10  INFO        ✅ Sent OK: Email sent to hello@wellingtonkingsleyassociates.com.au (CC: emily.loving@agenti
+2026-02-24 19:03:13  INFO      [51/100] → contact@pinnaclefinancialadelaide.com.au | Pinnacle Financial Adelaide (financial_services, Adelaide SA)
+2026-02-24 19:03:14  INFO        ✅ Sent OK: Email sent to contact@pinnaclefinancialadelaide.com.au (CC: emily.loving@agentic
+2026-02-24 19:03:17  INFO      [52/100] → info@victorharborfinancialaccountin.com.au | Victor Harbor Financial Accounting (accounting, Victor Harbor SA)
+2026-02-24 19:03:18  INFO        ✅ Sent OK: Email sent to info@victorharborfinancialaccountin.com.au (CC: emily.loving@agent
+2026-02-24 19:03:21  INFO      [53/100] → hello@cottesloewellnesscentre.com.au | Cottesloe Wellness Centre (medical, Cottesloe WA)
+2026-02-24 19:03:22  INFO        ✅ Sent OK: Email sent to hello@cottesloewellnesscentre.com.au (CC: emily.loving@agenticscal
+2026-02-24 19:03:25  INFO      [54/100] → admin@salisburyfinancialservices.com.au | Salisbury Financial Services (financial_services, Salisbury SA)
+2026-02-24 19:03:25  INFO        ✅ Sent OK: Email sent to admin@salisburyfinancialservices.com.au (CC: emily.loving@agentics
+2026-02-24 19:03:28  INFO      [55/100] → office@grahamassociateslawyers.com.au | Graham & Associates Lawyers (legal, Bondi NSW)
+2026-02-24 19:03:29  INFO        ✅ Sent OK: Email sent to office@grahamassociateslawyers.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:03:32  INFO      [56/100] → admin@springhillfamilyhealth.com.au | Spring Hill Family Health (medical, Spring Hill QLD)
+2026-02-24 19:03:33  INFO        ✅ Sent OK: Email sent to admin@springhillfamilyhealth.com.au (CC: emily.loving@agenticscale
+2026-02-24 19:03:36  INFO      [57/100] → admin@devereauxfairfaxpartners.com.au | Devereaux & Fairfax & Partners (legal, Geelong VIC)
+2026-02-24 19:03:36  INFO        ✅ Sent OK: Email sent to admin@devereauxfairfaxpartners.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:03:39  INFO      [58/100] → reception@brisbanedentalstudio.com.au | Brisbane Dental Studio (dental, Brisbane QLD)
+2026-02-24 19:03:40  INFO        ✅ Sent OK: Email sent to reception@brisbanedentalstudio.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:03:43  INFO      [59/100] → info@summitconsultingspringhill.com.au | Summit Consulting Spring Hill (other, Spring Hill QLD)
+2026-02-24 19:03:43  INFO        ✅ Sent OK: Email sent to info@summitconsultingspringhill.com.au (CC: emily.loving@agenticsc
+2026-02-24 19:03:46  INFO      [60/100] → info@salisburytaxaccounting.com.au | Salisbury Tax & Accounting (accounting, Salisbury SA)
+2026-02-24 19:03:47  INFO        ✅ Sent OK: Email sent to info@salisburytaxaccounting.com.au (CC: emily.loving@agenticscale.
+2026-02-24 19:03:50  INFO      [61/100] → office@bendigodentalspecialists.com.au | Bendigo Dental Specialists (dental, Bendigo VIC)
+2026-02-24 19:03:51  INFO        ✅ Sent OK: Email sent to office@bendigodentalspecialists.com.au (CC: emily.loving@agenticsc
+2026-02-24 19:03:54  INFO      [62/100] → contact@thefitzroyaccountingco.com.au | The Fitzroy Accounting Co (accounting, Fitzroy VIC)
+2026-02-24 19:03:54  INFO        ✅ Sent OK: Email sent to contact@thefitzroyaccountingco.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:03:57  INFO      [63/100] → info@mandurahmanagementconsulting.com.au | Mandurah Management Consulting (other, Mandurah WA)
+2026-02-24 19:03:58  INFO        ✅ Sent OK: Email sent to info@mandurahmanagementconsulting.com.au (CC: emily.loving@agentic
+2026-02-24 19:04:01  INFO      [64/100] → hello@theperthmedicalpractice.com.au | The Perth Medical Practice (medical, Perth WA)
+2026-02-24 19:04:02  INFO        ✅ Sent OK: Email sent to hello@theperthmedicalpractice.com.au (CC: emily.loving@agenticscal
+2026-02-24 19:04:05  INFO      [65/100] → admin@donaldsongallagherlegalcounsel.com.au | Donaldson & Gallagher Legal Counsel (legal, Chatswood NSW)
+2026-02-24 19:04:05  INFO        ✅ Sent OK: Email sent to admin@donaldsongallagherlegalcounsel.com.au (CC: emily.loving@agen
+2026-02-24 19:04:08  INFO      [66/100] → info@russellaccountinggroup.com.au | Russell Accounting Group (accounting, Toowoomba QLD)
+2026-02-24 19:04:09  INFO        ✅ Sent OK: Email sent to info@russellaccountinggroup.com.au (CC: emily.loving@agenticscale.
+2026-02-24 19:04:12  INFO      [67/100] → office@bellfinancialadvisors.com.au | Bell Financial Advisors (financial_services, Parramatta NSW)
+2026-02-24 19:04:13  INFO        ✅ Sent OK: Email sent to office@bellfinancialadvisors.com.au (CC: emily.loving@agenticscale
+2026-02-24 19:04:16  INFO      [68/100] → contact@salisburymedicalgroup.com.au | Salisbury Medical Group (medical, Salisbury SA)
+2026-02-24 19:04:16  INFO        ✅ Sent OK: Email sent to contact@salisburymedicalgroup.com.au (CC: emily.loving@agenticscal
+2026-02-24 19:04:19  INFO      [69/100] → info@murphyaccountinggroup.com.au | Murphy Accounting Group (accounting, Mount Gambier SA)
+2026-02-24 19:04:20  INFO        ✅ Sent OK: Email sent to info@murphyaccountinggroup.com.au (CC: emily.loving@agenticscale.a
+2026-02-24 19:04:23  INFO      [70/100] → reception@drsimmonsassociatesmedical.com.au | Dr Simmons & Associates Medical (medical, Wollongong NSW)
+2026-02-24 19:04:24  INFO        ✅ Sent OK: Email sent to reception@drsimmonsassociatesmedical.com.au (CC: emily.loving@agen
+2026-02-24 19:04:27  INFO      [71/100] → office@nedlandsestatelaw.com.au | Nedlands Estate Law (legal, Nedlands WA)
+2026-02-24 19:04:28  INFO        ✅ Sent OK: Email sent to office@nedlandsestatelaw.com.au (CC: emily.loving@agenticscale.ai)
+2026-02-24 19:04:31  INFO      [72/100] → info@brightsmilescairns.com.au | Bright Smiles Cairns (dental, Cairns QLD)
+2026-02-24 19:04:31  INFO        ✅ Sent OK: Email sent to info@brightsmilescairns.com.au (CC: emily.loving@agenticscale.ai)
+2026-02-24 19:04:34  INFO      [73/100] → hello@richmondrecruitmentsolutions.com.au | Richmond Recruitment Solutions (other, Richmond VIC)
+2026-02-24 19:04:35  INFO        ✅ Sent OK: Email sent to hello@richmondrecruitmentsolutions.com.au (CC: emily.loving@agenti
+2026-02-24 19:04:38  INFO      [74/100] → contact@smithwestaccountants.com.au | Smith West Accountants (accounting, Surry Hills NSW)
+2026-02-24 19:04:39  INFO        ✅ Sent OK: Email sent to contact@smithwestaccountants.com.au (CC: emily.loving@agenticscale
+2026-02-24 19:04:42  INFO      [75/100] → contact@graywealthgroup.com.au | Gray Wealth Group (financial_services, Geelong VIC)
+2026-02-24 19:04:42  INFO        ✅ Sent OK: Email sent to contact@graywealthgroup.com.au (CC: emily.loving@agenticscale.ai)
+2026-02-24 19:04:45  INFO      [76/100] → reception@edwardsfinancialadvisors.com.au | Edwards Financial Advisors (financial_services, Gold Coast QLD)
+2026-02-24 19:04:46  INFO        ✅ Sent OK: Email sent to reception@edwardsfinancialadvisors.com.au (CC: emily.loving@agenti
+2026-02-24 19:04:49  INFO      [77/100] → contact@southportbusinessaccountants.com.au | Southport Business Accountants (accounting, Southport QLD)
+2026-02-24 19:04:50  INFO        ✅ Sent OK: Email sent to contact@southportbusinessaccountants.com.au (CC: emily.loving@agen
+2026-02-24 19:04:53  INFO      [78/100] → reception@glenelgdentalspecialists.com.au | Glenelg Dental Specialists (dental, Glenelg SA)
+2026-02-24 19:04:54  INFO        ✅ Sent OK: Email sent to reception@glenelgdentalspecialists.com.au (CC: emily.loving@agenti
+2026-02-24 19:04:57  INFO      [79/100] → contact@whyallafinancialaccounting.com.au | Whyalla Financial Accounting (accounting, Whyalla SA)
+2026-02-24 19:04:57  INFO        ✅ Sent OK: Email sent to contact@whyallafinancialaccounting.com.au (CC: emily.loving@agenti
+2026-02-24 19:05:00  INFO      [80/100] → hello@mandurahinvestmentadvisors.com.au | Mandurah Investment Advisors (financial_services, Mandurah WA)
+2026-02-24 19:05:01  INFO        ✅ Sent OK: Email sent to hello@mandurahinvestmentadvisors.com.au (CC: emily.loving@agentics
+2026-02-24 19:05:04  INFO      [81/100] → admin@sydneysmsfadvisors.com.au | Sydney SMSF Advisors (financial_services, Sydney NSW)
+2026-02-24 19:05:04  INFO        ✅ Sent OK: Email sent to admin@sydneysmsfadvisors.com.au (CC: emily.loving@agenticscale.ai)
+2026-02-24 19:05:07  INFO      [82/100] → reception@stkildahealthclinic.com.au | St Kilda Health Clinic (medical, St Kilda VIC)
+2026-02-24 19:05:08  INFO        ✅ Sent OK: Email sent to reception@stkildahealthclinic.com.au (CC: emily.loving@agenticscal
+2026-02-24 19:05:11  INFO      [83/100] → reception@ramirezassociateslawyers.com.au | Ramirez & Associates Lawyers (legal, Hawthorn VIC)
+2026-02-24 19:05:12  INFO        ✅ Sent OK: Email sent to reception@ramirezassociateslawyers.com.au (CC: emily.loving@agenti
+2026-02-24 19:05:15  INFO      [84/100] → info@hawthornadvanceddental.com.au | Hawthorn Advanced Dental (dental, Hawthorn VIC)
+2026-02-24 19:05:15  INFO        ✅ Sent OK: Email sent to info@hawthornadvanceddental.com.au (CC: emily.loving@agenticscale.
+2026-02-24 19:05:18  INFO      [85/100] → reception@wellingtonbennettlegalservices.com.au | Wellington & Bennett Legal Services (legal, Fitzroy VIC)
+2026-02-24 19:05:19  INFO        ✅ Sent OK: Email sent to reception@wellingtonbennettlegalservices.com.au (CC: emily.loving@
+2026-02-24 19:05:22  INFO      [86/100] → contact@washingtonassociateslawyers.com.au | Washington & Associates Lawyers (legal, Perth WA)
+2026-02-24 19:05:23  INFO        ✅ Sent OK: Email sent to contact@washingtonassociateslawyers.com.au (CC: emily.loving@agent
+2026-02-24 19:05:26  INFO      [87/100] → contact@walkerassociateslawyers.com.au | Walker & Associates Lawyers (legal, Fortitude Valley QLD)
+2026-02-24 19:05:26  INFO        ✅ Sent OK: Email sent to contact@walkerassociateslawyers.com.au (CC: emily.loving@agenticsc
+2026-02-24 19:05:29  INFO      [88/100] → contact@blueskyfinancialparramatta.com.au | BlueSky Financial Parramatta (financial_services, Parramatta NSW)
+2026-02-24 19:05:30  INFO        ✅ Sent OK: Email sent to contact@blueskyfinancialparramatta.com.au (CC: emily.loving@agenti
+2026-02-24 19:05:33  INFO      [89/100] → reception@bondicommunityhealth.com.au | Bondi Community Health (medical, Bondi NSW)
+2026-02-24 19:05:34  INFO        ✅ Sent OK: Email sent to reception@bondicommunityhealth.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:05:37  INFO      [90/100] → hello@dandenongcriminallaw.com.au | Dandenong Criminal Law (legal, Dandenong VIC)
+2026-02-24 19:05:38  INFO        ✅ Sent OK: Email sent to hello@dandenongcriminallaw.com.au (CC: emily.loving@agenticscale.a
+2026-02-24 19:05:41  INFO      [91/100] → contact@stewartcocharteredaccountants.com.au | Stewart & Co Chartered Accountants (accounting, Wollongong NSW)
+2026-02-24 19:05:42  INFO        ✅ Sent OK: Email sent to contact@stewartcocharteredaccountants.com.au (CC: emily.loving@age
+2026-02-24 19:05:45  INFO      [92/100] → office@aldridgemacphersonlegal.com.au | Aldridge & Macpherson Legal (legal, Melbourne VIC)
+2026-02-24 19:05:45  INFO        ✅ Sent OK: Email sent to office@aldridgemacphersonlegal.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:05:48  INFO      [93/100] → office@grahamassociatesaccounting.com.au | Graham & Associates Accounting (accounting, Mandurah WA)
+2026-02-24 19:05:49  INFO        ✅ Sent OK: Email sent to office@grahamassociatesaccounting.com.au (CC: emily.loving@agentic
+2026-02-24 19:05:52  INFO      [94/100] → admin@cottesloeestatelaw.com.au | Cottesloe Estate Law (legal, Cottesloe WA)
+2026-02-24 19:05:52  INFO        ✅ Sent OK: Email sent to admin@cottesloeestatelaw.com.au (CC: emily.loving@agenticscale.ai)
+2026-02-24 19:05:55  INFO      [95/100] → office@clarityconsultingsurryhills.com.au | Clarity Consulting Surry Hills (other, Surry Hills NSW)
+2026-02-24 19:05:56  INFO        ✅ Sent OK: Email sent to office@clarityconsultingsurryhills.com.au (CC: emily.loving@agenti
+2026-02-24 19:05:59  INFO      [96/100] → info@fosterassociatesfinancial.com.au | Foster & Associates Financial (financial_services, Manly NSW)
+2026-02-24 19:06:00  INFO        ✅ Sent OK: Email sent to info@fosterassociatesfinancial.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:06:03  INFO      [97/100] → office@mountgambierwellnesscentre.com.au | Mount Gambier Wellness Centre (medical, Mount Gambier SA)
+2026-02-24 19:06:03  INFO        ✅ Sent OK: Email sent to office@mountgambierwellnesscentre.com.au (CC: emily.loving@agentic
+2026-02-24 19:06:06  INFO      [98/100] → hello@collinscarmichaellegalcounsel.com.au | Collins & Carmichael Legal Counsel (legal, Fortitude Valley QLD)
+2026-02-24 19:06:07  INFO        ✅ Sent OK: Email sent to hello@collinscarmichaellegalcounsel.com.au (CC: emily.loving@agent
+2026-02-24 19:06:10  INFO      [99/100] → info@sullivanassociatesaccounting.com.au | Sullivan & Associates Accounting (accounting, Dandenong VIC)
+2026-02-24 19:06:11  INFO        ✅ Sent OK: Email sent to info@sullivanassociatesaccounting.com.au (CC: emily.loving@agentic
+2026-02-24 19:06:14  INFO      [100/100] → info@southportbusinesslaw.com.au | Southport Business Law (legal, Southport QLD)
+2026-02-24 19:06:14  INFO        ✅ Sent OK: Email sent to info@southportbusinesslaw.com.au (CC: emily.loving@agenticscale.ai
+2026-02-24 19:06:14  INFO      ============================================================
+2026-02-24 19:06:14  INFO      Campaign complete — Sent: 100 | Errors: 0
+2026-02-24 19:06:14  INFO      ============================================================
+2026-02-24 19:15:30  INFO      ============================================================
+2026-02-24 19:15:30  INFO      BusinessGrader Campaign Sender — 🚀 LIVE
+2026-02-24 19:15:30  INFO      Targets: 25
+2026-02-24 19:15:30  INFO      Rate limit: 1 email / 3 seconds
+2026-02-24 19:15:30  INFO      ============================================================
+2026-02-24 19:15:30  INFO      [1/25] → contact@adamsaccountinggroup.com.au | Adams Accounting Group (accounting, Ballarat VIC)
+2026-02-24 19:15:31  INFO        ✅ Sent OK: Email sent to contact@adamsaccountinggroup.com.au (CC: emily.loving@agenticscale
+2026-02-24 19:15:34  INFO      [2/25] → reception@mountgambierhealthclinic.com.au | Mount Gambier Health Clinic (medical, Mount Gambier SA)
+2026-02-24 19:15:35  INFO        ✅ Sent OK: Email sent to reception@mountgambierhealthclinic.com.au (CC: emily.loving@agenti
+2026-02-24 19:15:38  INFO      [3/25] → office@nedlandswealthmanagement.com.au | Nedlands Wealth Management (financial_services, Nedlands WA)
+2026-02-24 19:15:39  INFO        ✅ Sent OK: Email sent to office@nedlandswealthmanagement.com.au (CC: emily.loving@agenticsc
+2026-02-24 19:15:42  INFO      [4/25] → office@southportretirementplanning.com.au | Southport Retirement Planning (financial_services, Southport QLD)
+2026-02-24 19:15:42  INFO        ✅ Sent OK: Email sent to office@southportretirementplanning.com.au (CC: emily.loving@agenti
+2026-02-24 19:15:45  INFO      [5/25] → contact@townsvillesmiledental.com.au | Townsville Smile Dental (dental, Townsville QLD)
+2026-02-24 19:15:46  INFO        ✅ Sent OK: Email sent to contact@townsvillesmiledental.com.au (CC: emily.loving@agenticscal
+2026-02-24 19:15:49  INFO      [6/25] → hello@manlyhealthcaregroup.com.au | Manly Healthcare Group (medical, Manly NSW)
+2026-02-24 19:15:50  INFO        ✅ Sent OK: Email sent to hello@manlyhealthcaregroup.com.au (CC: emily.loving@agenticscale.a
+2026-02-24 19:15:53  INFO      [7/25] → hello@richardsonfinancialadvisors.com.au | Richardson Financial Advisors (financial_services, Box Hill VIC)
+2026-02-24 19:15:54  INFO        ✅ Sent OK: Email sent to hello@richardsonfinancialadvisors.com.au (CC: emily.loving@agentic
+2026-02-24 19:15:57  INFO      [8/25] → info@wallaceoccupationaltherapy.com.au | Wallace Occupational Therapy (other, Cottesloe WA)
+2026-02-24 19:15:57  INFO        ✅ Sent OK: Email sent to info@wallaceoccupationaltherapy.com.au (CC: emily.loving@agenticsc
+2026-02-24 19:16:00  INFO      [9/25] → contact@mountgambiersmeaccounting.com.au | Mount Gambier SME Accounting (accounting, Mount Gambier SA)
+2026-02-24 19:16:01  INFO        ✅ Sent OK: Email sent to contact@mountgambiersmeaccounting.com.au (CC: emily.loving@agentic
+2026-02-24 19:16:04  INFO      [10/25] → office@richmondadvanceddental.com.au | Richmond Advanced Dental (dental, Richmond VIC)
+2026-02-24 19:16:05  INFO        ✅ Sent OK: Email sent to office@richmondadvanceddental.com.au (CC: emily.loving@agenticscal
+2026-02-24 19:16:08  INFO      [11/25] → reception@subiacosmiledental.com.au | Subiaco Smile Dental (dental, Subiaco WA)
+2026-02-24 19:16:09  INFO        ✅ Sent OK: Email sent to reception@subiacosmiledental.com.au (CC: emily.loving@agenticscale
+2026-02-24 19:16:12  INFO      [12/25] → admin@salisburywealthmanagement.com.au | Salisbury Wealth Management (financial_services, Salisbury SA)
+2026-02-24 19:16:12  INFO        ✅ Sent OK: Email sent to admin@salisburywealthmanagement.com.au (CC: emily.loving@agenticsc
+2026-02-24 19:16:15  INFO      [13/25] → admin@ashworthblackwoodlawfirm.com.au | Ashworth & Blackwood Law Firm (legal, Hawthorn VIC)
+2026-02-24 19:16:16  INFO        ✅ Sent OK: Email sent to admin@ashworthblackwoodlawfirm.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:16:19  INFO      [14/25] → contact@sandersassociatesaccounting.com.au | Sanders & Associates Accounting (accounting, Fortitude Valley QLD)
+2026-02-24 19:16:19  INFO        ✅ Sent OK: Email sent to contact@sandersassociatesaccounting.com.au (CC: emily.loving@agent
+2026-02-24 19:16:22  INFO      [15/25] → office@thedentalpracticedandenong.com.au | The Dental Practice Dandenong (dental, Dandenong VIC)
+2026-02-24 19:16:23  INFO        ✅ Sent OK: Email sent to office@thedentalpracticedandenong.com.au (CC: emily.loving@agentic
+2026-02-24 19:16:26  INFO      [16/25] → info@cottesloecorporatelaw.com.au | Cottesloe Corporate Law (legal, Cottesloe WA)
+2026-02-24 19:16:27  INFO        ✅ Sent OK: Email sent to info@cottesloecorporatelaw.com.au (CC: emily.loving@agenticscale.a
+2026-02-24 19:16:30  INFO      [17/25] → admin@hallbusinessservices.com.au | Hall Business Services (accounting, Penrith NSW)
+2026-02-24 19:16:31  INFO        ✅ Sent OK: Email sent to admin@hallbusinessservices.com.au (CC: emily.loving@agenticscale.a
+2026-02-24 19:16:34  INFO      [18/25] → contact@newcastlefinancialaccounting.com.au | Newcastle Financial Accounting (accounting, Newcastle NSW)
+2026-02-24 19:16:35  INFO        ✅ Sent OK: Email sent to contact@newcastlefinancialaccounting.com.au (CC: emily.loving@agen
+2026-02-24 19:16:38  INFO      [19/25] → hello@townsvilleemploymentlaw.com.au | Townsville Employment Law (legal, Townsville QLD)
+2026-02-24 19:16:39  INFO        ✅ Sent OK: Email sent to hello@townsvilleemploymentlaw.com.au (CC: emily.loving@agenticscal
+2026-02-24 19:16:42  INFO      [20/25] → office@townsvillewealthmanagement.com.au | Townsville Wealth Management (financial_services, Townsville QLD)
+2026-02-24 19:16:42  INFO        ✅ Sent OK: Email sent to office@townsvillewealthmanagement.com.au (CC: emily.loving@agentic
+2026-02-24 19:16:45  INFO      [21/25] → info@southportdentalcare.com.au | Southport Dental Care (dental, Southport QLD)
+2026-02-24 19:16:46  INFO        ✅ Sent OK: Email sent to info@southportdentalcare.com.au (CC: emily.loving@agenticscale.ai)
+2026-02-24 19:16:49  INFO      [22/25] → hello@unleymarketingservices.com.au | Unley Marketing Services (other, Unley SA)
+2026-02-24 19:16:50  INFO        ✅ Sent OK: Email sent to hello@unleymarketingservices.com.au (CC: emily.loving@agenticscale
+2026-02-24 19:16:53  INFO      [23/25] → contact@alexandermedicalcentre.com.au | Alexander Medical Centre (medical, St Kilda VIC)
+2026-02-24 19:16:54  INFO        ✅ Sent OK: Email sent to contact@alexandermedicalcentre.com.au (CC: emily.loving@agenticsca
+2026-02-24 19:16:57  INFO      [24/25] → admin@langfordbuckleylegal.com.au | Langford & Buckley Legal (legal, Toowoomba QLD)
+2026-02-24 19:16:57  INFO        ✅ Sent OK: Email sent to admin@langfordbuckleylegal.com.au (CC: emily.loving@agenticscale.a
+2026-02-24 19:17:00  INFO      [25/25] → contact@stkildafinancialaccounting.com.au | St Kilda Financial Accounting (accounting, St Kilda VIC)
+2026-02-24 19:17:01  INFO        ✅ Sent OK: Email sent to contact@stkildafinancialaccounting.com.au (CC: emily.loving@agenti
+2026-02-24 19:17:01  INFO      ============================================================
+2026-02-24 19:17:01  INFO      Campaign complete — Sent: 25 | Errors: 0
+2026-02-24 19:17:01  INFO      ============================================================
