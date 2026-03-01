@@ -1,22 +1,19 @@
 import os
 import json
 import datetime
-import smtplib
 import threading
 import urllib.request
 import urllib.parse
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 PORT = int(os.environ.get("PORT", 8080))
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# ── Email config (set these as Railway env vars) ──────────────────────────────
-SMTP_HOST     = os.environ.get("SMTP_HOST", "smtp.office365.com")
-SMTP_PORT     = int(os.environ.get("SMTP_PORT", "587"))
-SMTP_USER     = os.environ.get("SMTP_USER", "jenny.cole@agenticsprint.ai")
-SMTP_PASS     = os.environ.get("SMTP_PASS", "")
+# ── Microsoft Graph API config ────────────────────────────────────────────────
+GRAPH_TENANT  = os.environ.get("GRAPH_TENANT", "")
+GRAPH_CLIENT  = os.environ.get("GRAPH_CLIENT", "")
+GRAPH_SECRET  = os.environ.get("GRAPH_SECRET", "")
+SENDER_EMAIL  = os.environ.get("SENDER_EMAIL", "jenny.cole@agenticsprint.ai")
 NOTIFY_EMAIL  = os.environ.get("NOTIFY_EMAIL", "emily.loving@agenticscale.ai")
 SITE_URL      = os.environ.get("RAILWAY_PUBLIC_DOMAIN", "businessgrader-web-production-56e0.up.railway.app")
 SHEETS_WEBHOOK = os.environ.get("SHEETS_WEBHOOK", "https://script.google.com/macros/s/AKfycbztbdipdOiJIT8UsZbbRMnMrTiJu4YK6YZJHdaJP0yFtAnuZLMkVaH18s-wVN24L8hvbQ/exec")
@@ -37,24 +34,41 @@ def log_to_sheets(payload):
         print(f"[SHEETS] Failed: {e}")
 
 
+def get_graph_token():
+    """Get Microsoft Graph API access token."""
+    url  = f"https://login.microsoftonline.com/{GRAPH_TENANT}/oauth2/v2.0/token"
+    data = urllib.parse.urlencode({
+        "client_id":     GRAPH_CLIENT,
+        "client_secret": GRAPH_SECRET,
+        "scope":         "https://graph.microsoft.com/.default",
+        "grant_type":    "client_credentials"
+    }).encode()
+    req  = urllib.request.Request(url, data=data, headers={"Content-Type": "application/x-www-form-urlencoded"})
+    resp = json.loads(urllib.request.urlopen(req, timeout=10).read())
+    return resp["access_token"]
+
+
 def send_notification(subject, html_body):
-    """Send email notification via SMTP. Fails silently if not configured."""
-    if not SMTP_PASS:
-        print(f"[NOTIFY] No SMTP_PASS set — skipping email: {subject}")
-        return
+    """Send email via Microsoft Graph API."""
     try:
-        msg = MIMEMultipart("alternative")
-        msg["Subject"] = subject
-        msg["From"]    = SMTP_USER
-        msg["To"]      = NOTIFY_EMAIL
-        msg.attach(MIMEText(html_body, "html"))
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-            server.starttls()
-            server.login(SMTP_USER, SMTP_PASS)
-            server.sendmail(SMTP_USER, NOTIFY_EMAIL, msg.as_string())
-        print(f"[NOTIFY] Email sent: {subject}")
+        token = get_graph_token()
+        payload = {
+            "message": {
+                "subject": subject,
+                "body": {"contentType": "HTML", "content": html_body},
+                "toRecipients": [{"emailAddress": {"address": NOTIFY_EMAIL}}]
+            }
+        }
+        data = json.dumps(payload).encode()
+        req  = urllib.request.Request(
+            f"https://graph.microsoft.com/v1.0/users/{SENDER_EMAIL}/sendMail",
+            data=data, method="POST",
+            headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+        )
+        urllib.request.urlopen(req, timeout=10)
+        print(f"[NOTIFY] Email sent via Graph API: {subject}")
     except Exception as e:
-        print(f"[NOTIFY] Email failed: {e}")
+        print(f"[NOTIFY] Graph API email failed: {e}")
 
 
 def notify_new_lead(email, url, company=None, name=None):
