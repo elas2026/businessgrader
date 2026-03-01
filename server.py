@@ -19,10 +19,22 @@ SMTP_USER     = os.environ.get("SMTP_USER", "jenny.cole@agenticsprint.ai")
 SMTP_PASS     = os.environ.get("SMTP_PASS", "")
 NOTIFY_EMAIL  = os.environ.get("NOTIFY_EMAIL", "emily.loving@agenticscale.ai")
 SITE_URL      = os.environ.get("RAILWAY_PUBLIC_DOMAIN", "businessgrader-web-production-56e0.up.railway.app")
+SHEETS_WEBHOOK = os.environ.get("SHEETS_WEBHOOK", "https://script.google.com/macros/s/AKfycbztbdipdOiJIT8UsZbbRMnMrTiJu4YK6YZJHdaJP0yFtAnuZLMkVaH18s-wVN24L8hvbQ/exec")
 
 # ── In-memory lead log (also printed to Railway logs) ────────────────────────
 leads = []
 events = []
+
+
+def log_to_sheets(payload):
+    """POST lead/event data to Google Sheets via Apps Script webhook."""
+    try:
+        data = json.dumps(payload).encode()
+        req = urllib.request.Request(SHEETS_WEBHOOK, data=data, headers={"Content-Type": "application/json"})
+        urllib.request.urlopen(req, timeout=10)
+        print(f"[SHEETS] Logged: {payload.get('email','event')}")
+    except Exception as e:
+        print(f"[SHEETS] Failed: {e}")
 
 
 def send_notification(subject, html_body):
@@ -191,8 +203,9 @@ class Handler(BaseHTTPRequestHandler):
                 }
                 leads.append(record)
                 print(f"[LEAD] {email} | {url} | {name}")
-                # Fire-and-forget email notification (non-blocking)
+                # Fire-and-forget — email + Google Sheets (non-blocking)
                 threading.Thread(target=notify_new_lead, args=(email, url), kwargs={"name": name}, daemon=True).start()
+                threading.Thread(target=log_to_sheets, args=({"email": email, "name": name, "url": url, "event": "lead"},), daemon=True).start()
 
             response = json.dumps({"ok": True}).encode()
             self.send_response(200)
@@ -243,6 +256,7 @@ class Handler(BaseHTTPRequestHandler):
             events.append({"type": "book_call_click", "email": email, "url": url, "timestamp": datetime.datetime.utcnow().isoformat()})
             print(f"[BOOK-CALL] {email} | {url}")
             threading.Thread(target=notify_call_booking, kwargs={"email": email, "url": url}, daemon=True).start()
+            threading.Thread(target=log_to_sheets, args=({"email": email, "url": url, "event": "book_call_click"},), daemon=True).start()
             response = json.dumps({"ok": True}).encode()
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
