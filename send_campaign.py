@@ -48,10 +48,10 @@ def load_templates():
         return json.load(f)
 
 def personalise(template_str, business_name, contact_name, city):
-    first_name = contact_name.split()[0] if contact_name else 'there'
+    # contact_name removed from personalisation — names in DB are AI-generated
     return (template_str
             .replace('{{business_name}}', business_name)
-            .replace('{{contact_name}}', first_name)
+            .replace('{{contact_name}}', 'there')
             .replace('{{city}}', city))
 
 def get_pending(conn, industry=None, limit=None):
