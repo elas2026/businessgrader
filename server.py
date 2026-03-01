@@ -2,6 +2,7 @@ import os
 import json
 import datetime
 import smtplib
+import threading
 import urllib.request
 import urllib.parse
 from email.mime.text import MIMEText
@@ -190,11 +191,8 @@ class Handler(BaseHTTPRequestHandler):
                 }
                 leads.append(record)
                 print(f"[LEAD] {email} | {url} | {name}")
-                # Fire-and-forget email notification
-                try:
-                    notify_new_lead(email, url, name=name)
-                except Exception as e:
-                    print(f"[LEAD] Notify failed: {e}")
+                # Fire-and-forget email notification (non-blocking)
+                threading.Thread(target=notify_new_lead, args=(email, url), kwargs={"name": name}, daemon=True).start()
 
             response = json.dumps({"ok": True}).encode()
             self.send_response(200)
@@ -244,10 +242,7 @@ class Handler(BaseHTTPRequestHandler):
             url   = data.get("url", "").strip()
             events.append({"type": "book_call_click", "email": email, "url": url, "timestamp": datetime.datetime.utcnow().isoformat()})
             print(f"[BOOK-CALL] {email} | {url}")
-            try:
-                notify_call_booking(email=email, url=url)
-            except Exception as e:
-                print(f"[BOOK-CALL] Notify failed: {e}")
+            threading.Thread(target=notify_call_booking, kwargs={"email": email, "url": url}, daemon=True).start()
             response = json.dumps({"ok": True}).encode()
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
